@@ -6,7 +6,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import Features from "./components/Features";
 
 import BusDetails from "./components/BusDetails"; // Bus list page
 import BusInfo from "./components/BusInfo"; // Individual bus info page
@@ -25,7 +24,6 @@ const App = () => (
       </main>
 
       <footer>
-        <Features />
       </footer>
     </div>
   </Router>
