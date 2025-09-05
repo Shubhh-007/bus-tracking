@@ -20,7 +20,6 @@ const buses = [
     name: "Banaras Express",
     status: "Running",
     statusText: "Running",
-    statusColor: "bg-green-600",
     source: "Banaras",
     destination: "Gorakhpur",
     driverName: "Ram Sharma",
@@ -53,37 +52,36 @@ export default function BusInfo() {
   }
 
   const seatPercent = (bus.seatAvailable / bus.seatCapacity) * 100;
-  const currentIdx = bus.routeStops.findIndex(
-    (stop) => stop.name === bus.currentStop
-  );
+  const currentIdx = bus.routeStops.findIndex((stop) => stop.name === bus.currentStop);
 
   return (
-    <div className="min-h-screen p-12 bg-gradient-to-br from-green-100 via-white to-green-200 font-sans max-w-7xl mx-auto rounded-3xl shadow-2xl">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 bg-white rounded-3xl shadow-xl p-10">
+    <div className="min-h-screen p-12 bg-gradient-to-br from-green-50 via-white to-green-100 font-sans max-w-7xl mx-auto rounded-3xl shadow-2xl">
+      <div className="grid grid-cols-1 md:grid-cols-[480px_1fr] gap-12 bg-white rounded-3xl shadow-xl p-10">
         {/* LEFT BOX: Bus Details */}
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-col justify-start space-y-10">
           {/* Header */}
-          <div className="flex justify-between items-center mb-6">
-            <h1 className="text-5xl font-extrabold text-green-900 max-w-[320px] truncate">
+          <div>
+            <h1 className="text-5xl font-extrabold text-green-900 leading-tight">
               {bus.name}
-              <span className="text-gray-400 text-2xl font-normal ml-2">
-                ({bus.busNumber})
-              </span>
             </h1>
-            <div
-              className={`px-5 py-2 rounded-full text-white font-semibold text-lg ${bus.statusColor} shadow-md select-none`}
-              aria-label={`Status: ${bus.statusText}`}
-            >
-              {bus.statusText}
+            <p className="text-green-700 font-semibold text-lg mt-1">
+              Bus Number: <span className="text-green-900 font-bold">{bus.busNumber}</span>
+            </p>
+            {/* Status and small green dot */}
+            <div className="flex items-center mt-4 space-x-2">
+              <span className="w-4 h-4 rounded-full bg-green-500 inline-block" />
+              <span className="text-green-600 font-semibold uppercase tracking-wide text-sm select-none">
+                {bus.statusText}
+              </span>
             </div>
           </div>
 
-          {/* Source-Destination */}
-          <p className="text-green-700 text-2xl font-bold mb-8 flex items-center gap-3">
+          {/* Route Info */}
+          <p className="text-green-700 text-2xl font-bold flex items-center gap-3">
             <span>{bus.source}</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="w-10 h-10"
+              className="w-8 h-8"
               fill="none"
               viewBox="0 0 24 24"
               stroke="#22c55e"
@@ -96,13 +94,13 @@ export default function BusInfo() {
             <span>{bus.destination}</span>
           </p>
 
-          {/* Driver Info */}
-          <div className="mb-10 space-y-4">
-            <div className="flex items-center gap-3 text-gray-900 text-lg font-semibold">
+          {/* Driver Information */}
+          <div className="space-y-4 text-lg">
+            <div className="flex items-center gap-3 text-gray-900 font-semibold">
               <FiUser className="text-green-600 w-6 h-6 flex-shrink-0" />
               <span>Driver: {bus.driverName}</span>
             </div>
-            <div className="flex items-center gap-3 text-green-700 text-lg font-semibold">
+            <div className="flex items-center gap-3 text-green-700 font-semibold">
               <FiPhoneCall className="text-green-600 w-6 h-6 flex-shrink-0" />
               <a
                 href={`tel:${bus.driverPhone}`}
@@ -119,7 +117,7 @@ export default function BusInfo() {
             <label className="block mb-2 text-xl font-bold text-green-800">
               Seats Available
             </label>
-            <div className="relative rounded-full h-12 bg-green-200 overflow-hidden shadow-inner cursor-default">
+            <div className="relative h-14 rounded-full bg-green-200 shadow-inner overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-green-700 via-green-600 to-green-500 rounded-full transition-all duration-1000"
                 style={{ width: `${seatPercent}%` }}
@@ -130,12 +128,11 @@ export default function BusInfo() {
             </div>
           </div>
 
-          {/* Horizontal Route Timeline */}
-          <div className="mt-14">
+          {/* Route Timeline */}
+          <div>
             <h2 className="text-green-800 font-bold text-2xl mb-6">Route Timeline</h2>
-            <div className="overflow-x-auto relative pb-6 px-6 border rounded-lg bg-green-50 shadow-inner">
+            <div className="overflow-x-auto relative pb-6 px-6 border rounded-lg bg-green-50 shadow-inner select-none">
               <div className="flex items-center space-x-14 min-w-max relative">
-                {/* Progress bar background */}
                 <div
                   className="absolute top-[36px] left-6 right-6 h-1 bg-gradient-to-r from-green-600 via-green-400 to-green-300 rounded-full z-0"
                   style={{ transform: "translateY(-50%)" }}
@@ -147,7 +144,9 @@ export default function BusInfo() {
                   return (
                     <div
                       key={stop.name}
-                      className="relative z-10 flex flex-col items-center cursor-default min-w-[120px] text-center select-none"
+                      className={`relative z-10 flex flex-col items-center min-w-[120px] text-center ${
+                        isCurrent ? "cursor-default" : ""
+                      }`}
                     >
                       <div
                         className={`w-10 h-10 rounded-full border-4 flex items-center justify-center ${
@@ -197,27 +196,34 @@ export default function BusInfo() {
           </div>
         </div>
 
-        {/* RIGHT BOX: Map and location */}
-        <div className="bg-green-50 rounded-tr-3xl rounded-br-3xl p-8 flex flex-col items-center justify-start">
+        
+        {/* RIGHT BOX: Map and Location */}
+        <div
+          className="bg-green-50 rounded-tr-3xl rounded-br-3xl p-8 flex flex-col items-center justify-start sticky top-16 z-30"
+          style={{ alignSelf: "start" }} // Prevent sticky stretching when flex container
+        >
           <h2 className="text-center text-3xl font-bold text-green-800 mb-10">
             Current Location: <span className="text-green-700">{bus.currentLocation.city}</span>
           </h2>
           <div className="w-full rounded-xl shadow-xl overflow-hidden" style={{ height: 420 }}>
-            <MapContainer
-              center={[bus.currentLocation.lat, bus.currentLocation.lng]}
-              zoom={12}
-              scrollWheelZoom
-              style={{ height: "100%", width: "100%" }}
-              key={`${bus.currentLocation.lat}-${bus.currentLocation.lng}`}
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <Marker position={[bus.currentLocation.lat, bus.currentLocation.lng]}>
-                <Popup>{bus.name} is located here.</Popup>
-              </Marker>
-            </MapContainer>
+            
+            <div className="sticky top-16 z-30 w-full rounded-xl shadow-xl overflow-hidden" style={{ height: 420 }}>
+  <MapContainer
+    center={[bus.currentLocation.lat, bus.currentLocation.lng]}
+    zoom={12}
+    scrollWheelZoom
+    style={{ height: "100%", width: "100%" }}
+    key={`${bus.currentLocation.lat}-${bus.currentLocation.lng}`}
+  >
+    <TileLayer
+      attribution='&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker position={[bus.currentLocation.lat, bus.currentLocation.lng]}>
+      <Popup>{bus.name} is located here.</Popup>
+    </Marker>
+  </MapContainer>
+</div>
           </div>
         </div>
       </div>

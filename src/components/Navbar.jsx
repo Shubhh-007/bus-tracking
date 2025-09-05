@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Navbar() {
   return (
-    <header className="bg-gradient-to-r from-green-900 via-green-800 to-green-700 py-4 px-0">
+    <header className="sticky top-0 z-50 bg-gradient-to-r from-green-900 via-green-800 to-green-700 py-4 px-0">
       <div className="max-w-4xl mx-auto flex items-center justify-between px-6 py-3 bg-white rounded-2xl shadow-lg">
 
         {/* Left: Logo */}
