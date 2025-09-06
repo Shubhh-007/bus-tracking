@@ -1,0 +1,25 @@
+{
+  "rules": {
+    "users": {
+      "$userId": {
+        ".read": "auth != null && auth.uid == $userId",
+        ".write": "auth != null && auth.uid == $userId"
+      }
+    },
+    "buses": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "routes": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "ai_predictions": {
+      ".read": true,
+      ".write": "auth != null"
+    }
+  }
+}
+
+
+
