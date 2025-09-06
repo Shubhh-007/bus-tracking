@@ -1,7 +1,7 @@
 
 
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ArrowLeftRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { FaMedal } from "react-icons/fa";
@@ -109,6 +109,19 @@ export default function Hero() {
               Track Bus
             </button>
           </form>
+
+          {/* Admin Access Link */}
+          <div className="mt-6 text-center">
+            <Link 
+              to="/admin" 
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-green-700 bg-green-50 border border-green-200 rounded-lg hover:bg-green-100 hover:text-green-800 transition-colors"
+            >
+              <svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd" />
+              </svg>
+              Admin Panel Access
+            </Link>
+          </div>
         </div>
 
         {/* Right: Image */}
