@@ -57,7 +57,6 @@ export default function Navbar() {
         {/* Right: Admin Login (no redirect) */}
         <div className="flex items-center space-x-2">
           <button
-            onClick={() => alert("Admin Login clicked! (no redirect)")}
             className="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg shadow hover:bg-green-700 transition"
           >
             User Login
